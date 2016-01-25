@@ -19,22 +19,31 @@ $app->get('/welcome-twig/{name}', function ($name) use ($app) {
     );
 });
 
-
 $app->get('/home', function () use ($app) {
     return $app['templating']->render(
-        'home.html.php'
+        'home.html.php',
+        array('active'=>'home')
     );
 });
 
 
 $app->get('/blog', function () use ($app) {
     return $app['templating']->render(
-        'blog.html.php'
+        'blog.html.php',
+        array('active'=>'blog')
     );
 });
 
 $app->get('/new', function () use ($app) {
     return $app['templating']->render(
-        'new.html.php'
+        'new.html.php',
+        array('active'=>'new')
+    );
+});
+
+$app->get('/test', function () use ($app) {
+    return $app['templating']->render(
+        'test.html.php',
+        array('active'=>'test')
     );
 });
