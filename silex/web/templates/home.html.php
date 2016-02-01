@@ -21,6 +21,7 @@
                 <li class="list-group-item list-group-item-danger">Dapibus ac facilisis in</li>
                 <li class="list-group-item list-group-item-warning">Morbi leo risus</li>
                 <li class="list-group-item list-group-item-success">Porta ac consectetur ac</li>
+                <li class="list-group-item list-group-item-active">Dieses Element ist aktiv</li>
                 <li class="list-group-item">Vestibulum at eros</li>
             </ul>
         </div>
