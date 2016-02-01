@@ -15,12 +15,12 @@
                             <form action="/new" method="post">
                                <div class="form-group">
                                     <label for="exampleInputEmail1">Titel</label>
-                                    <input type="text" class="form-control" name="title" placeholder="Gebe hier einen Titel an" value="<?php echo $title; ?>"
+                                    <input type="text" class="form-control" name="title" placeholder="Gebe hier einen Titel an" value="<?php echo $title; ?>" />
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Blogbeitrag</label>
-                                    <textarea> class="form-control" type="text" rows="6" name="content" placeholder=
-                                    "Gebe hier ein was du bloggen möchtest" value="<?php echo $content; ?>" </textarea>
+                                    <textarea class="form-control" type="text" rows="6" name="content" placeholder=
+                                    "Gebe hier ein was du bloggen möchtest" value="<?php echo $content; ?>"</textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Absenden</button>
 
