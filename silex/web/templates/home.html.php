@@ -27,7 +27,7 @@
         </div>
         <div class="col-md-4">
             <div class="panel panel-default panel-body">
-                Hose Wurst und Eier jeder hat Maramlade
+                Hose Wurst und Eier jeder hat Maramlade test test test bis zum zielen umbruch lalala schalal
             </div>
         </div>
         <div class="col-md-4">
