@@ -1,25 +1,22 @@
 <?php $view->extend('layout.html.php') ?>
 
-<div class="row">
-    <div class="col-md-4">
-        <ul class="list-group">
-            <li class="list-group-item list-group-item-info">Cras justo odio</li>
-            <li class="list-group-item list-group-item-danger">Dapibus ac facilisis in</li>
-            <li class="list-group-item list-group-item-warning">Morbi leo risus</li>
-            <li class="list-group-item list-group-item-success">Porta ac consectetur ac</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-    </div>
-    <div class="col-md-4">
-        <div class="panel panel-default panel-body">
-            Hose Wurst und Eier jeder hat Maramlade
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="panel panel-default panel-body">
-            Lulululoullu lalalalaednvfhjilb jghdklvlfkvldvlef
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"><b>Übersicht</b></div>
+                <ul class="list-group">
+                    <?php foreach ($posts as $entry) { ?>
+                    <li class="list-group-item">
+                        <b><?php echo $entry['title']; ?></b> <?php echo $entry['created_at']; ?><br>
+                        <?php echo substr( $entry['text'], 0, 70);
+                        ?> <a href="/blog/<?=$entry['id']?>">[...]</a>
+                        <?php } ?>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
 
-</div>
+
