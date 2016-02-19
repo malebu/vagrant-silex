@@ -12,13 +12,11 @@ $slots = $view['slots'];
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <title> <?php $slots->output('title', 'Default title') ?></title>
-    <link rel="stylesheet" href="/vendor/bootstrap/dist/css/bootstrap.min.css"
-          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
-    <script> src = "/vendor/bootstrap/Dist/js/bootstrap.min.js"
-        integrity = "schalomduschanz.de"
-        crossorigin = "anonymous"</script>
-
+    <title> <?php $slots->output('title', "Marius Blog") ?></title>
+    <link rel="stylesheet" href="../vendor/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../vendor/bootstrap/dist/css/bootstrap-theme.min.css">
+    <script type="text/javascript" src="../vendor/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="../vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 </head>
 
 <body>
