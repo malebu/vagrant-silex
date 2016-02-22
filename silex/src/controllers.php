@@ -31,6 +31,25 @@ $app->get('/home', function () use ($template) {
     );
 });
 
+$app->match('/login', function (Request $request) use ($app, $template) {
+    if (!$request->isMethod('POST') && !$request->isMethod('GET')) {
+        $app->abort(405);
+    }
+    $loginfailed = false;
+    if ($request->isMethod('POST')) {
+        if ($request->get("username") == NULL) {
+            $loginfailed = true;
+        }
+    }
+
+    $return_site = 'login.html.php';
+
+    array(
+        'username' => $request->get('username'),
+    );
+
+});
+
 
 $app->get('/blog', function () use ($template, $dbConnection) {
     $posts = $dbConnection->fetchAll('SELECT * FROM blog_post ');
@@ -50,13 +69,6 @@ $app->get('/blog/{id}', function ($id) use ($template, $dbConnection) {
         array(
             'active' => 'blog',
             'post' => $post)
-    );
-});
-
-$app->get('/test', function () use ($template) {
-    return $template->render(
-        'test.html.php',
-        array('active' => 'test')
     );
 });
 
