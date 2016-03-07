@@ -13,7 +13,7 @@
                     </div>
                     <form action="/new" method="post">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Titel</label>
+                            <label for="title">Titel</label>
                             <input type="text" id="title" class="form-control" name="title"
                                    placeholder="Gebe hier einen Titel an" value="<?php echo $title; ?>"/>
                         </div>

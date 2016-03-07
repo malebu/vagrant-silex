@@ -42,8 +42,10 @@ $slots = $view['slots'];
                             class="glyphicon glyphicon-book" aria-hidden="true"></span> Blog</a></li>
                 <li <?= $active == 'new' ? 'class="active"' : '' ?>><a href="/new"><span
                             class="glyphicon glyphicon-pencil" aria-hidden="true"></span> New Post</a></li>
-                <li <?= $active == 'test' ? 'class="active"' : '' ?>><a href="/test"><span
-                            class="glyphicon glyphicon-cog" aria-hidden="true"></span> Testseite</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li <?= $active == 'login' ? 'class="active"' : '' ?>><a href="/login"><span
+                            class="glyphicon glyphicon-lock" aria-hidden="true"></span> Login</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

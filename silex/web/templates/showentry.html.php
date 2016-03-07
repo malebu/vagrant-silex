@@ -8,7 +8,7 @@
                     am: <?php echo $post['created_at']; ?></div>
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <?php echo $post['text']; ?>
+                        <?php echo nl2br($post['text']); ?>
                     </li>
                 </ul>
             </div>

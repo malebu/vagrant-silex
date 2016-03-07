@@ -6,12 +6,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><b>Übersicht</b></div>
                 <ul class="list-group">
-                    <?php foreach ($posts as $entry) { ?>
+                    <?php foreach ($posts as $entry) : ?>
                     <li class="list-group-item">
-                        <b><?php echo $entry['title']; ?></b> <?php echo $entry['created_at']; ?>
-                        <br><?php echo substr($entry['text'], 0, 70);
-                        ?> <a href="/blog/<?= $entry['id'] ?>">[...]</a>
-                        <?php } ?>
+                        <b><?= $entry['title']; ?></b> <?= $entry['created_at']; ?>
+                        <br><?= substr($entry['text'], 0, 70); ?>
+                        <a href="/blog/<?= $entry['id'] ?>">[...]</a>
+                        <?php endforeach; ?>
                     </li>
                 </ul>
             </div>

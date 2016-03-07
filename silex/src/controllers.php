@@ -35,17 +35,27 @@ $app->match('/login', function (Request $request) use ($app, $template) {
     if (!$request->isMethod('POST') && !$request->isMethod('GET')) {
         $app->abort(405);
     }
-    $loginfailed = false;
+    $logincorrect = true;
     if ($request->isMethod('POST')) {
         if ($request->get("username") == NULL) {
-            $loginfailed = true;
+            $logincorrect = false;
         }
     }
 
     $return_site = 'login.html.php';
 
-    array(
-        'username' => $request->get('username'),
+    if ($logincorrect == true && $request->isMethod('POST')) {
+        $return_site = 'sucesslogin.html.php';
+        array(
+            'username' => $request->get('username'));
+            }
+
+    return $template->render(
+        $return_site,
+        array(
+            'logincorrect' => $logincorrect,
+            'active' => 'login',
+            'username' => $request->get('username'))
     );
 
 });

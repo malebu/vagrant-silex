@@ -6,7 +6,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><b>Login</div>
                 <div class="panel-body">
-                    <div> <?php if ($loginfail == true) : ?>
+                    <div> <?php if ($logincorrect == false) : ?>
                             <div class="alert alert-danger" role="alert">Bitte geben sie ihren Benutzername ein!
                             </div>
                         <?php endif; ?>
