@@ -17,6 +17,9 @@ $slots = $view['slots'];
     <link rel="stylesheet" href="../vendor/bootstrap/dist/css/bootstrap-theme.min.css">
     <script type="text/javascript" src="../vendor/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="../vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="icon"
+          type="image/png"
+          href="../vendor/Favicon_Marius_Blog.png">
 </head>
 
 <body>
@@ -44,6 +47,8 @@ $slots = $view['slots'];
                             class="glyphicon glyphicon-pencil" aria-hidden="true"></span> New Post</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li <?= $active == 'account' ? 'class="active"' : '' ?>><a
+                        href="/user"><?php ($username != 0) ? ('') : ($username) ?></a></li>
                 <li <?= $active == 'login' ? 'class="active"' : '' ?>><a href="/login"><span
                             class="glyphicon glyphicon-lock" aria-hidden="true"></span> Login</a></li>
             </ul>
@@ -52,5 +57,6 @@ $slots = $view['slots'];
 </nav>
 
 <?php $view['slots']->output('_content') ?>
+
 </body>
 </html>

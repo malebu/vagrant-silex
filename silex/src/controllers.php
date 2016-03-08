@@ -1,5 +1,6 @@
 <?php
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @var $app silex\Application
@@ -30,14 +31,17 @@ $app->get('/home', function () use ($template) {
         array('active' => 'home')
     );
 });
-
+//Login
 $app->match('/login', function (Request $request) use ($app, $template) {
     if (!$request->isMethod('POST') && !$request->isMethod('GET')) {
         $app->abort(405);
     }
+
+    $username = $request->get('username');
+
     $logincorrect = true;
     if ($request->isMethod('POST')) {
-        if ($request->get("username") == NULL) {
+        if ($request->get('username') == NULL) {
             $logincorrect = false;
         }
     }
@@ -45,10 +49,11 @@ $app->match('/login', function (Request $request) use ($app, $template) {
     $return_site = 'login.html.php';
 
     if ($logincorrect == true && $request->isMethod('POST')) {
-        $return_site = 'sucesslogin.html.php';
         array(
             'username' => $request->get('username'));
-            }
+        $app['session']->set('username', array('username' => $username));
+        $return_site = 'loginsuccess.html.php';
+    }
 
     return $template->render(
         $return_site,
@@ -60,7 +65,17 @@ $app->match('/login', function (Request $request) use ($app, $template) {
 
 });
 
+$app->get('/user', function () use ($template, $app){
+    $name = $app['session']->get('username');
+    return $template->render(
+    'user.html.php',
+    array('active' => 'account',
+        'username' => $name['username'])
+    );
 
+});
+
+//show blog entries in a list
 $app->get('/blog', function () use ($template, $dbConnection) {
     $posts = $dbConnection->fetchAll('SELECT * FROM blog_post ');
     return $template->render(
@@ -72,6 +87,7 @@ $app->get('/blog', function () use ($template, $dbConnection) {
     );
 });
 
+//show one blog entry complete
 $app->get('/blog/{id}', function ($id) use ($template, $dbConnection) {
     $post = $dbConnection->fetchAssoc("SELECT * FROM blog_post WHERE id=?", array($id));
     return $template->render(
