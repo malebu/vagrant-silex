@@ -25,14 +25,27 @@ $app->get('/welcome-twig/{name}', function ($name) use ($app) {
     );
 });
 
-$app->get('/home', function () use ($template) {
+$app->get('/home', function (Request $request) use ($app, $template) {
+    $name = $app['session']->get('username');
+    $cookieset = true;
+    if ($name['username'] != TRUE) {
+        $cookieset = false;
+    }
     return $template->render(
         'home.html.php',
-        array('active' => 'home')
+        array('active' => 'home',
+            'navbaruser' => $name['username'],
+            'cookieset' => $cookieset)
     );
 });
+
 //Login
 $app->match('/login', function (Request $request) use ($app, $template) {
+    $name = $app['session']->get('username');
+    $cookieset = true;
+    if ($name['username'] != TRUE) {
+        $cookieset = false;
+    }
     if (!$request->isMethod('POST') && !$request->isMethod('GET')) {
         $app->abort(405);
     }
@@ -59,49 +72,90 @@ $app->match('/login', function (Request $request) use ($app, $template) {
         $return_site,
         array(
             'logincorrect' => $logincorrect,
+            'cookieset' => $cookieset,
             'active' => 'login',
-            'username' => $request->get('username'))
+            'username' => $request->get('username'),
+            'navbaruser' => $name['username'])
     );
 
 });
 
-$app->get('/user', function () use ($template, $app){
+$app->get('/user', function () use ($template, $app) {
     $name = $app['session']->get('username');
+    $cookieset = true;
+    if ($name['username'] != TRUE) {
+        $cookieset = false;
+    }
     return $template->render(
-    'user.html.php',
-    array('active' => 'account',
-        'username' => $name['username'])
+        'user.html.php',
+        array('active' => 'account',
+            'cookieset' => $cookieset,
+            'username' => $name['username'],
+            'navbaruser' => $name['username'])
     );
 
 });
 
 //show blog entries in a list
-$app->get('/blog', function () use ($template, $dbConnection) {
+$app->get('/blog', function () use ($app, $template, $dbConnection) {
+    $name = $app['session']->get('username');
+    $cookieset = true;
+    if ($name['username'] != TRUE) {
+        $cookieset = false;
+    }
     $posts = $dbConnection->fetchAll('SELECT * FROM blog_post ');
     return $template->render(
         'blog.html.php',
         array(
             'active' => 'blog',
-            'posts' => $posts)
+            'cookieset' => $cookieset,
+            'posts' => $posts,
+            'navbaruser' => $name['username'])
 
     );
 });
 
 //show one blog entry complete
-$app->get('/blog/{id}', function ($id) use ($template, $dbConnection) {
+$app->get('/blog/{id}', function ($id) use ($app, $template, $dbConnection) {
+    $name = $app['session']->get('username');
+    $cookieset = true;
+    if ($name['username'] != TRUE) {
+        $cookieset = false;
+    }
     $post = $dbConnection->fetchAssoc("SELECT * FROM blog_post WHERE id=?", array($id));
     return $template->render(
         'showentry.html.php',
         array(
             'active' => 'blog',
-            'post' => $post)
+            'cookieset' => $cookieset,
+            $name = $app['session']->get('username'),
+            'post' => $post,
+            'navbaruser' => $name)
     );
 });
 
 $app->match('/new', function (Request $request) use ($app, $template, $dbConnection) {
+    $name = $app['session']->get('username');
+    $cookieset = true;
+    if ($name['username'] != TRUE) {
+        $cookieset = false;
+    }
     if (!$request->isMethod('POST') && !$request->isMethod('GET')) {
         $app->abort(405);
+
     }
+
+    if ($cookieset == FALSE && $request->isMethod('GET') && $request->isMethod('POST')) {
+        return $template->render(
+            'requestlogin.html.php',
+            array(
+                'active' => 'blog',
+                'navbaruser' => $name['username'],
+                'cookieset' => $cookieset)
+        );
+
+    }
+
     $allFieldsCorrect = true;
     if ($request->isMethod('POST')) {
         if ($request->get("title") == NULL || $request->get("content") == NULL) {
@@ -118,6 +172,7 @@ $app->match('/new', function (Request $request) use ($app, $template, $dbConnect
             array(
                 'title' => $request->get('title'),
                 'text' => $request->get('content'),
+                'author' => $name['username'],
                 'created_at' => date('c')
             )
         );
@@ -127,12 +182,34 @@ $app->match('/new', function (Request $request) use ($app, $template, $dbConnect
     return $template->render(
         $return_site,
         array('active' => 'new',
+            'cookieset' => $cookieset,
             'allFieldsCorrect' => $allFieldsCorrect,
             'title' => $request->get('title'),
-            'content' => $request->get('content'))
+            $name = $app['session']->get('username'),
+            'content' => $request->get('content'),
+            'navbaruser' => $name['username'])
     );
 });
 
+$app->get('/logout', function () use ($template, $app) {
+    $name = $app['session']->get('username');
+    $cookieset = true;
+    if ($name['username'] != TRUE) {
+        $cookieset = false;
+    }
+    $app['session']->set('username', array($name['username'] = NULL));
+    $app['session']->invalidate($lifetime = null);
+
+    $logoutsuccess = true;
+
+    return $template->render(
+        'logout.html.php',
+        array('active' => 'login',
+            'cookieset' => $cookieset,
+            'navbaruser' => $name)
+
+    );
+});
 
 
 

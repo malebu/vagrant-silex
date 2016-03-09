@@ -10,8 +10,8 @@
                         <div class="panel-body"><b><?= $username; ?></b>
                         </div>
                     </div>
-                    <form action="/logoff" method="post">
-                        <a class="btn btn-danger" href="/logoff" role="button">Ausloggen</a>
+                    <form action="/logout" method="post">
+                        <a class="btn btn-danger" href="/logout" role="button">Ausloggen</a>
                     </form>
                 </div>
             </div>

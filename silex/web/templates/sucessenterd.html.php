@@ -9,15 +9,14 @@
                         erfolgreich übermittelt!
                     </div>
                     <div class="panel panel-success">
-                        <div class="panel-heading"><b>Titel:</b></div>
-                        <div><?php echo $title; ?></div>
-                    </div>
-                    <div class="panel panel-success">
-                        <div class="panel-heading"><b>Beitrag:</b></div>
-                        <div><span><?php echo $content; ?></span></div>
+                        <div class="panel-heading">
+                            <b><?php echo $title; ?></b></div>
+                        <div class="panel-body">
+                        <?php echo $content; ?></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>

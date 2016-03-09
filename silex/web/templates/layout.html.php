@@ -48,9 +48,14 @@ $slots = $view['slots'];
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li <?= $active == 'account' ? 'class="active"' : '' ?>><a
-                        href="/user"><?php ($username != 0) ? ('') : ($username) ?></a></li>
+                        href="/user"><?= ($navbaruser != 0) ? ('') : ($navbaruser) ?></a></li>
+                <?php if ($cookieset == false) { ?>
                 <li <?= $active == 'login' ? 'class="active"' : '' ?>><a href="/login"><span
-                            class="glyphicon glyphicon-lock" aria-hidden="true"></span> Login</a></li>
+                                class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login</a>
+                    </li><?php } else { ?>
+                    <li <?= $active == 'logout' ? 'class="active"' : '' ?>><a href="/quicklogout"><span
+                                class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a>
+                    </li> <?php } ?>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
