@@ -26,17 +26,19 @@ $app->get('/welcome-twig/{name}', function ($name) use ($app) {
 });
 
 //homepage, starting page
-$app->get('/home', function () use ($app, $template) {
+$app->get('/home', function () use ($app, $template, $dbConnection) {
     $name = $app['session']->get('username');
     $cookieset = true;
     if ($name['username'] != TRUE) {
         $cookieset = false;
     }
+    $latestpost = $dbConnection->fetchAssoc('SELECT * FROM blog_post HAVING max(id)');
     return $template->render(
         'home.html.php',
         array('active' => 'home',
             'navbaruser' => $name['username'],
-            'cookieset' => $cookieset)
+            'cookieset' => $cookieset,
+            'latestpost' => $latestpost)
     );
 });
 
