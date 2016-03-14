@@ -15,12 +15,12 @@ $slots = $view['slots'];
     <title> <?php $slots->output('title', "Marius Blog") ?></title>
     <link rel="stylesheet" href="../vendor/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../vendor/bootstrap/dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="../vendor/bootstrap/dist/css/sticky-footer.css">
+    <link rel="stylesheet" href="../favicon-and-css/sticky-footer.css">
     <script type="text/javascript" src="../vendor/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="../vendor/bootstrap/dist/js/bootstrap.min.js"></script>
     <link rel="icon"
           type="image/png"
-          href="../vendor/Favicon_Marius_Blog.png">
+          href="../favicon-and-css/Favicon_Marius_Blog.png">
 </head>
 
 <body>
