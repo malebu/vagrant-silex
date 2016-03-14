@@ -15,6 +15,7 @@ $slots = $view['slots'];
     <title> <?php $slots->output('title', "Marius Blog") ?></title>
     <link rel="stylesheet" href="../vendor/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../vendor/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../vendor/bootstrap/dist/css/sticky-footer.css">
     <script type="text/javascript" src="../vendor/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="../vendor/bootstrap/dist/js/bootstrap.min.js"></script>
     <link rel="icon"
@@ -53,7 +54,7 @@ $slots = $view['slots'];
                 <li <?= $active == 'login' ? 'class="active"' : '' ?>><a href="/login"><span
                                 class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login</a>
                     </li><?php } else { ?>
-                    <li <?= $active == 'logout' ? 'class="active"' : '' ?>><a href="/quicklogout"><span
+                    <li <?= $active == 'logout' ? 'class="active"' : '' ?>><a href="/logout"><span
                                 class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a>
                     </li> <?php } ?>
             </ul>
@@ -62,6 +63,12 @@ $slots = $view['slots'];
 </nav>
 
 <?php $view['slots']->output('_content') ?>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">© Marius Buck 2015 - <a href="https://goo.gl/maps/37Wqj5khQ3J2">DHBW Stuttgart</a></p>
+    </div>
+</footer>
 
 </body>
 </html>

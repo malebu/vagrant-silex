@@ -6,9 +6,9 @@
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
                     <div class="panel panel-success">
-                        <div class="panel-heading"><b>Du hast dich ausgeloggt</b></div>
+                        <div class="panel-heading"><b>Du hast dich erfolgreich ausgeloggt</b></div>
                     </div>
-                    <?php if ($cookieset != TRUE) : ?>
+                    <?php if ($cookieset != FALSE) : ?>
                         <form action="/logout" method="post">
                             <a class="btn btn-danger" href="/logout" role="button">Ausloggen</a>
                         </form>

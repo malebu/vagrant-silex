@@ -5,7 +5,7 @@
         <div class="col-xs-12">
             <div class="jumbotron">
 
-                <h1><strong>Web-Engineering 1 Projekt</strong></h1>
+                <h1><strong>Web-Engineering Projekt</strong></h1>
                 <p>Ein kleiner Blog mit Loginfunktion</p>
                 <p><a class="btn btn-warning btn-lg" href="/blog" role="button">
                         <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Blogbeiträge

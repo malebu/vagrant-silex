@@ -25,7 +25,8 @@ $app->get('/welcome-twig/{name}', function ($name) use ($app) {
     );
 });
 
-$app->get('/home', function (Request $request) use ($app, $template) {
+//homepage, starting page
+$app->get('/home', function () use ($app, $template) {
     $name = $app['session']->get('username');
     $cookieset = true;
     if ($name['username'] != TRUE) {
@@ -42,6 +43,7 @@ $app->get('/home', function (Request $request) use ($app, $template) {
 //Login
 $app->match('/login', function (Request $request) use ($app, $template) {
     $name = $app['session']->get('username');
+    //check if someone is already logged in
     $cookieset = true;
     if ($name['username'] != TRUE) {
         $cookieset = false;
@@ -80,30 +82,34 @@ $app->match('/login', function (Request $request) use ($app, $template) {
 
 });
 
-$app->get('/user', function () use ($template, $app) {
+//user site, where you can see who is logged in and his entries
+$app->get('/user', function () use ($template, $app, $dbConnection) {
     $name = $app['session']->get('username');
     $cookieset = true;
     if ($name['username'] != TRUE) {
         $cookieset = false;
     }
+    $author = $name['username'];
+    $posts = $dbConnection->fetchAll('SELECT * FROM blog_post WHERE author=? ORDER BY id DESC;', array($author));
     return $template->render(
         'user.html.php',
         array('active' => 'account',
             'cookieset' => $cookieset,
             'username' => $name['username'],
-            'navbaruser' => $name['username'])
+            'navbaruser' => $name['username'],
+            'posts' => $posts)
     );
 
 });
 
-//show blog entries in a list
+//show all blog entries in a list
 $app->get('/blog', function () use ($app, $template, $dbConnection) {
     $name = $app['session']->get('username');
     $cookieset = true;
     if ($name['username'] != TRUE) {
         $cookieset = false;
     }
-    $posts = $dbConnection->fetchAll('SELECT * FROM blog_post ');
+    $posts = $dbConnection->fetchAll('SELECT * FROM blog_post ORDER BY id DESC;');
     return $template->render(
         'blog.html.php',
         array(
@@ -128,12 +134,12 @@ $app->get('/blog/{id}', function ($id) use ($app, $template, $dbConnection) {
         array(
             'active' => 'blog',
             'cookieset' => $cookieset,
-            $name = $app['session']->get('username'),
             'post' => $post,
-            'navbaruser' => $name)
+            'navbaruser' => $name['username'])
     );
 });
 
+//create a new blog entry
 $app->match('/new', function (Request $request) use ($app, $template, $dbConnection) {
     $name = $app['session']->get('username');
     $cookieset = true;
@@ -145,11 +151,11 @@ $app->match('/new', function (Request $request) use ($app, $template, $dbConnect
 
     }
 
-    if ($cookieset == FALSE && $request->isMethod('GET') && $request->isMethod('POST')) {
+    if ($cookieset == FALSE && $request->isMethod('GET')) {
         return $template->render(
             'requestlogin.html.php',
             array(
-                'active' => 'blog',
+                'active' => 'new',
                 'navbaruser' => $name['username'],
                 'cookieset' => $cookieset)
         );
@@ -164,6 +170,8 @@ $app->match('/new', function (Request $request) use ($app, $template, $dbConnect
     }
 
     $return_site = 'new.html.php';
+
+
 
     if ($allFieldsCorrect == true && $request->isMethod('POST')) {
         $return_site = 'sucessenterd.html.php';
@@ -191,6 +199,7 @@ $app->match('/new', function (Request $request) use ($app, $template, $dbConnect
     );
 });
 
+//logout site with fast logout function
 $app->get('/logout', function () use ($template, $app) {
     $name = $app['session']->get('username');
     $cookieset = true;
@@ -199,21 +208,14 @@ $app->get('/logout', function () use ($template, $app) {
     }
     $app['session']->set('username', array($name['username'] = NULL));
     $app['session']->invalidate($lifetime = null);
+    $cookieset = false;
 
-    $logoutsuccess = true;
 
     return $template->render(
         'logout.html.php',
-        array('active' => 'login',
+        array('active' => '',
             'cookieset' => $cookieset,
             'navbaruser' => $name)
 
     );
 });
-
-
-
-
-
-
-

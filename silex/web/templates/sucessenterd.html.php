@@ -10,10 +10,12 @@
                     </div>
                     <div class="panel panel-success">
                         <div class="panel-heading">
-                            <b><?php echo $title; ?></b></div>
+                            <b>Titel: </b><?= htmlentities($title) ?></div>
                         <div class="panel-body">
-                        <?php echo $content; ?></div>
+                            <b>Text: </b><?= htmlentities($content) ?></div>
                     </div>
+                    <a class="btn btn-info" href="/blog" role="button"><span
+                            class="glyphicon glyphicon-book" aria-hidden="true"></span> Beiträge anzeigen</a>
                 </div>
             </div>
         </div>
