@@ -8,9 +8,10 @@
                 <ul class="list-group">
                     <?php foreach ($posts as $entry) : ?>
                     <li class="list-group-item">
-                        <b><?= htmlentities($entry['title']); ?></b> am <?= $entry['created_at']; ?> von <?= $entry['author']; ?>
+                        <b><?= ($entry['title']); ?></b> am <?= $entry['created_at']; ?>
+                        von <?= $entry['author']; ?>
                         erstellt
-                        <br><?= htmlentities(substr($entry['text'], 0, 150)); ?>
+                        <br><?= (substr($entry['text'], 0, 150)); ?>
                         <a href="/blog/<?= $entry['id'] ?>">[...]</a>
                         <?php endforeach; ?>
                     </li>

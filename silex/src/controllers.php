@@ -32,8 +32,8 @@ $app->get('/home', function () use ($app, $template, $dbConnection) {
     if ($name['username'] != TRUE) {
         $cookieset = false;
     }
-    $latestpost = $dbConnection->fetchAssoc('SELECT * FROM blog_post HAVING max(id)');
-    return $template->render(
+    $latestpost = $dbConnection->fetchAssoc('SELECT * FROM blog_post id WHERE id =(SELECT max(id) FROM blog_post);');
+        return $template->render(
         'home.html.php',
         array('active' => 'home',
             'navbaruser' => $name['username'],

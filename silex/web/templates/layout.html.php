@@ -66,7 +66,8 @@ $slots = $view['slots'];
 
 <footer class="footer">
     <div class="container">
-        <p class="text-muted">© Marius Buck 2015 - <a href="https://goo.gl/maps/37Wqj5khQ3J2">DHBW Stuttgart</a></p>
+        <p class="text-muted">© Marius Buck 2015 - <a href="https://goo.gl/maps/37Wqj5khQ3J2" target="_blank">DHBW
+                Stuttgart</a></p>
     </div>
 </footer>
 

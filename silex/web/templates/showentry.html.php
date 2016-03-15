@@ -8,7 +8,7 @@
                     am: <?= $post['created_at']; ?> von <?= $post['author']; ?></div>
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <?php echo htmlentities(nl2br($post['text'])); ?>
+                        <?php echo (nl2br($post['text'])); ?>
                     </li>
                 </ul>
             </div>

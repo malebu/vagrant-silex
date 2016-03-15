@@ -10,9 +10,9 @@
                     </div>
                     <div class="panel panel-success">
                         <div class="panel-heading">
-                            <b>Titel: </b><?= htmlentities($title) ?></div>
+                            <b>Titel: </b><?= ($title) ?></div>
                         <div class="panel-body">
-                            <b>Text: </b><?= htmlentities($content) ?></div>
+                            <b>Text: </b><?= nl2br($content) ?></div>
                     </div>
                     <a class="btn btn-info" href="/blog" role="button"><span
                             class="glyphicon glyphicon-book" aria-hidden="true"></span> Beiträge anzeigen</a>
