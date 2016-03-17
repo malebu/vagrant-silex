@@ -18,17 +18,18 @@
                     <?php if ($posts == NULL) : ?>
                         <div class="panel-heading"><b>Du hast noch keine Beiträge erstellt</b></div>
                     <?php else : ?>
-                    <div class="panel-heading"><b>Von dir erstelle Beiträge:</b></div>
-                    <ul class="list-group">
-                        <?php foreach ($posts as $entry) : ?>
-                        <li class="list-group-item">
-                            <b><?= htmlentities($entry['title']); ?></b> erstellt am <?= $entry['created_at']; ?>
-                            <br><?= htmlentities(substr($entry['text'], 0, 70)); ?>
-                            <a href="/blog/<?= $entry['id'] ?>">[...]</a>
+                        <div class="panel-heading"><b>Von dir erstelle Beiträge:</b></div>
+                        <ul class="list-group">
+                            <?php foreach ($posts as $entry) : ?>
+                                <li class="list-group-item">
+                                    <b><?= htmlentities($entry['title']); ?></b> erstellt
+                                    am <?= $entry['created_at']; ?>
+                                    <br><?= htmlentities(substr($entry['text'], 0, 70)); ?>
+                                    <a href="/blog/<?= $entry['id'] ?>">[...]</a>
+                                </li>
                             <?php endforeach; ?>
-                            <?php endif; ?>
-                        </li>
-                    </ul>
+                        </ul>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

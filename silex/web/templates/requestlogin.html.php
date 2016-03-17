@@ -1,6 +1,6 @@
 <?php $view->extend('layout.html.php') ?>
 
-<div class="container" xmlns:>
+<div class="container">
     <div class="row">
         <div class="container">
             <div class="row">

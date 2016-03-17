@@ -13,7 +13,7 @@
                             <a class="btn btn-danger" href="/logout" role="button">Ausloggen</a>
                         </form>
                     <?php else : ?>
-                    <form action=/home" method="post">
+                    <form action="/home" method="post">
                         <a class="btn btn-success" href="/home" role="button">Zur Startseite</a> <?php endif ?>
                     </form>
                 </div>

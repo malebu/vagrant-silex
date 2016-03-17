@@ -18,7 +18,7 @@
                                    placeholder="Gebe hier einen Titel an" value="<?php echo $title; ?>"/>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Blogbeitrag</label>
+                            <label for="text">Blogbeitrag</label>
                                     <textarea class="form-control" id="text" rows="6" name="content"
                                               placeholder=
                                               "Gebe hier ein was du bloggen möchtest"><?php echo $content; ?></textarea>

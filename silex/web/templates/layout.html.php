@@ -40,6 +40,7 @@ $slots = $view['slots'];
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
+                <!-- only the current shown template will set active -->
                 <li <?= $active == 'home' ? 'class="active"' : '' ?>><a href="/home"><span
                             class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
                 <li <?= $active == 'blog' ? 'class="active"' : '' ?>><a href="/blog"><span
@@ -48,8 +49,10 @@ $slots = $view['slots'];
                             class="glyphicon glyphicon-pencil" aria-hidden="true"></span> New Post</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <!-- if nobody is logged in, the account click spot disappeared, otherwise the username is showed -->
                 <li <?= $active == 'account' ? 'class="active"' : '' ?>><a
                         href="/user"><?= ($navbaruser != 0) ? ('') : ($navbaruser) ?></a></li>
+                <!-- if nobody is logged in, login stands in navbar, else logout stands there -->
                 <?php if ($cookieset == false) { ?>
                 <li <?= $active == 'login' ? 'class="active"' : '' ?>><a href="/login"><span
                                 class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login</a>

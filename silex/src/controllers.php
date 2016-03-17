@@ -11,41 +11,38 @@ use Symfony\Component\HttpFoundation\Response;
 $dbConnection = $app['db'];
 $template = $app['templating'];
 
-$app->get('/welcome/{name}', function ($name) use ($template) {
-    return $template->render(
-        'hello.html.php',
-        array('name' => $name)
-    );
-});
 
-$app->get('/welcome-twig/{name}', function ($name) use ($app) {
-    return $app['twig']->render(
-        'hello.html.twig',
-        array('name' => $name)
-    );
-});
+//--------------------------------//
+// homepage resp. standard route  //
+//--------------------------------//
 
-//homepage, starting page
 $app->get('/home', function () use ($app, $template, $dbConnection) {
+    //--get username to show click spot in navbar (in every template)--//
     $name = $app['session']->get('username');
+    //--check if someone is already logged in (in every template)--//
     $cookieset = true;
     if ($name['username'] != TRUE) {
         $cookieset = false;
     }
+    //--get latest blog entry out of db--//
     $latestpost = $dbConnection->fetchAssoc('SELECT * FROM blog_post id WHERE id =(SELECT max(id) FROM blog_post);');
+
         return $template->render(
         'home.html.php',
-        array('active' => 'home',
+        array(
+            'active' => 'home', //-- marks the current template as active in the navbar (in every template)--//
             'navbaruser' => $name['username'],
             'cookieset' => $cookieset,
             'latestpost' => $latestpost)
     );
 });
 
-//Login
+//--------------//
+//login route   //
+//--------------//
+
 $app->match('/login', function (Request $request) use ($app, $template) {
     $name = $app['session']->get('username');
-    //check if someone is already logged in
     $cookieset = true;
     if ($name['username'] != TRUE) {
         $cookieset = false;
@@ -56,6 +53,7 @@ $app->match('/login', function (Request $request) use ($app, $template) {
 
     $username = $request->get('username');
 
+    //-- check if all entries are correct--//
     $logincorrect = true;
     if ($request->isMethod('POST')) {
         if ($request->get('username') == NULL) {
@@ -65,6 +63,7 @@ $app->match('/login', function (Request $request) use ($app, $template) {
 
     $return_site = 'login.html.php';
 
+    //--if login is correct a session with the username will be created--//
     if ($logincorrect == true && $request->isMethod('POST')) {
         array(
             'username' => $request->get('username'));
@@ -84,15 +83,20 @@ $app->match('/login', function (Request $request) use ($app, $template) {
 
 });
 
-//user site, where you can see who is logged in and his entries
+//--------------------------------------------------------------//
+// user profil with entries that the current user has created   //
+//--------------------------------------------------------------//
+
 $app->get('/user', function () use ($template, $app, $dbConnection) {
     $name = $app['session']->get('username');
     $cookieset = true;
     if ($name['username'] != TRUE) {
         $cookieset = false;
     }
+    //--show all entries in db that where created by the current user logged in user--//
     $author = $name['username'];
     $posts = $dbConnection->fetchAll('SELECT * FROM blog_post WHERE author=? ORDER BY id DESC;', array($author));
+
     return $template->render(
         'user.html.php',
         array('active' => 'account',
@@ -104,13 +108,17 @@ $app->get('/user', function () use ($template, $app, $dbConnection) {
 
 });
 
-//show all blog entries in a list
+//------------------------------------------------//
+// blog route - all entries are showed in a list  //
+//------------------------------------------------//
+
 $app->get('/blog', function () use ($app, $template, $dbConnection) {
     $name = $app['session']->get('username');
     $cookieset = true;
     if ($name['username'] != TRUE) {
         $cookieset = false;
     }
+    //-- get all blog entries out of the db --//
     $posts = $dbConnection->fetchAll('SELECT * FROM blog_post ORDER BY id DESC;');
     return $template->render(
         'blog.html.php',
@@ -123,13 +131,17 @@ $app->get('/blog', function () use ($app, $template, $dbConnection) {
     );
 });
 
-//show one blog entry complete
+//----------------------------------------------//
+// show one entire blog entry identified by id  //
+//----------------------------------------------//
+
 $app->get('/blog/{id}', function ($id) use ($app, $template, $dbConnection) {
     $name = $app['session']->get('username');
     $cookieset = true;
     if ($name['username'] != TRUE) {
         $cookieset = false;
     }
+    //--get one entry out of the db by calling the id--//
     $post = $dbConnection->fetchAssoc("SELECT * FROM blog_post WHERE id=?", array($id));
     return $template->render(
         'showentry.html.php',
@@ -141,18 +153,22 @@ $app->get('/blog/{id}', function ($id) use ($app, $template, $dbConnection) {
     );
 });
 
-//create a new blog entry
+//-------------------------//
+//create a new blog entry  //
+//-------------------------//
+
 $app->match('/new', function (Request $request) use ($app, $template, $dbConnection) {
     $name = $app['session']->get('username');
     $cookieset = true;
     if ($name['username'] != TRUE) {
         $cookieset = false;
     }
+
     if (!$request->isMethod('POST') && !$request->isMethod('GET')) {
         $app->abort(405);
 
     }
-
+    //-- if no user is logged in return the login request template--//
     if ($cookieset == FALSE && $request->isMethod('GET')) {
         return $template->render(
             'requestlogin.html.php',
@@ -164,6 +180,7 @@ $app->match('/new', function (Request $request) use ($app, $template, $dbConnect
 
     }
 
+    //--check if all fields are entered correct, if not return a warning in template--//
     $allFieldsCorrect = true;
     if ($request->isMethod('POST')) {
         if ($request->get("title") == NULL || $request->get("content") == NULL) {
@@ -173,8 +190,7 @@ $app->match('/new', function (Request $request) use ($app, $template, $dbConnect
 
     $return_site = 'new.html.php';
 
-
-
+    //--if all fields correct write the entries in the db--//
     if ($allFieldsCorrect == true && $request->isMethod('POST')) {
         $return_site = 'sucessenterd.html.php';
         $dbConnection->insert(
@@ -201,17 +217,20 @@ $app->match('/new', function (Request $request) use ($app, $template, $dbConnect
     );
 });
 
-//logout site with fast logout function
+//-------------------------------------------//
+// logout function with logout success site  //
+//-------------------------------------------//
+
 $app->get('/logout', function () use ($template, $app) {
     $name = $app['session']->get('username');
     $cookieset = true;
     if ($name['username'] != TRUE) {
         $cookieset = false;
     }
+    //--end session and logout--//
     $app['session']->set('username', array($name['username'] = NULL));
     $app['session']->invalidate($lifetime = null);
     $cookieset = false;
-
 
     return $template->render(
         'logout.html.php',
